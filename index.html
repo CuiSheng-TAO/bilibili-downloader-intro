@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>哔哩哔哩下载器 - 项目展示</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --accent: oklch(0.68 0.15 10);
+    --accent-subtle: oklch(0.97 0.02 10);
+    --accent-text: oklch(0.50 0.12 10);
+    --surface-0: #fff;
+    --surface-1: oklch(0.985 0.003 10);
+    --surface-2: oklch(0.91 0.01 10);
+    --text-primary: oklch(0.20 0.015 10);
+    --text-secondary: oklch(0.45 0.015 10);
+    --text-tertiary: oklch(0.65 0.01 10);
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 40px;
+    --space-2xl: 64px;
+    --space-3xl: 96px;
+  }
+  body {
+    font-family: 'DM Sans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    color: var(--text-primary);
+    line-height: 1.6;
+    background: var(--surface-0);
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1000px; margin: 0 auto; padding: 0 var(--space-lg); }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: var(--accent-text); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* HERO */
+  .hero {
+    border-top: 4px solid var(--accent);
+    padding: var(--space-3xl) 0 var(--space-2xl);
+  }
+  .hero-tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+  }
+  .hero h1 {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: var(--space-md);
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+  }
+  .hero p {
+    font-size: 17px;
+    color: var(--text-secondary);
+    max-width: 580px;
+    line-height: 1.7;
+  }
+  .stats-bar {
+    display: flex;
+    gap: var(--space-xl);
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--surface-2);
+    flex-wrap: wrap;
+  }
+  .stat-item { text-align: left; }
+  .stat-number {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+    color: var(--accent);
+  }
+  .stat-label {
+    font-size: 13px;
+    color: var(--text-tertiary);
+    font-weight: 400;
+  }
+
+  /* SECTIONS */
+  section { padding: var(--space-3xl) 0; }
+  section + section { border-top: 1px solid var(--surface-2); }
+  .section-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+  }
+  .section-desc {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-xl);
+    max-width: 560px;
+    line-height: 1.65;
+  }
+
+  /* STORY */
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+  .story-text h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: var(--space-md);
+    color: var(--text-primary);
+  }
+  .story-text p {
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+  .story-highlight {
+    background: var(--accent-subtle);
+    border-left: 2px solid var(--accent);
+    padding: var(--space-md) var(--space-lg);
+    margin-top: var(--space-lg);
+  }
+  .story-highlight p {
+    color: var(--accent-text);
+    font-weight: 500;
+    margin: 0;
+    font-size: 14px;
+  }
+  .screenshot-frame {
+    border: 1px solid var(--surface-2);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .screenshot-frame img {
+    width: 100%;
+    display: block;
+  }
+
+  /* FLOW */
+  .flow-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    overflow-x: auto;
+    padding-bottom: var(--space-md);
+  }
+  .flow-step {
+    flex: 1;
+    min-width: 160px;
+    text-align: center;
+    position: relative;
+    padding: 0 var(--space-sm);
+  }
+  .flow-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 24px;
+    right: -8px;
+    width: 16px;
+    height: 1px;
+    background: var(--surface-2);
+  }
+  .flow-number {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-sm);
+    font-size: 18px;
+    font-weight: 600;
+    background: var(--accent-subtle);
+    color: var(--accent);
+  }
+  .flow-step h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+  }
+  .flow-step p {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    line-height: 1.5;
+  }
+  .flow-tag {
+    display: inline-block;
+    margin-top: var(--space-sm);
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-weight: 500;
+    background: var(--accent-subtle);
+    color: var(--accent-text);
+  }
+
+  /* FEATURES */
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl) var(--space-xl);
+  }
+  .feature-item {}
+  .feature-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: var(--space-sm);
+  }
+  .feature-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    background: var(--accent-subtle);
+    color: var(--accent);
+  }
+  .feature-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .feature-list {
+    list-style: none;
+    padding: 0;
+  }
+  .feature-list li {
+    font-size: 14px;
+    color: var(--text-secondary);
+    padding: 3px 0 3px 16px;
+    position: relative;
+    line-height: 1.6;
+  }
+  .feature-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 11px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--surface-2);
+  }
+  .feature-screenshot {
+    margin-top: var(--space-md);
+    border: 1px solid var(--surface-2);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .feature-screenshot img {
+    width: 100%;
+    display: block;
+  }
+
+  /* VALUE */
+  .value-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl) var(--space-2xl);
+  }
+  .value-item {
+    text-align: left;
+  }
+  .value-icon {
+    font-size: 20px;
+    margin-bottom: var(--space-sm);
+  }
+  .value-item h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
+    color: var(--text-primary);
+  }
+  .value-item p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* TECH */
+  .tech-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    justify-content: center;
+    margin-bottom: var(--space-md);
+  }
+  .tech-badge {
+    background: var(--surface-1);
+    border: 1px solid var(--surface-2);
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+  .tech-note {
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-tertiary);
+  }
+
+  /* PROJECT STATS SUMMARY */
+  .dev-summary {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    margin-top: var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--accent-subtle);
+    border-radius: 8px;
+    flex-wrap: wrap;
+  }
+  .dev-summary-item { text-align: center; }
+  .dev-summary-item strong {
+    display: block;
+    font-size: 22px;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+  .dev-summary-item span {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  /* ABOUT */
+  .about-box {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .about-box blockquote {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.7;
+    margin-bottom: var(--space-xl);
+  }
+  .contact-info {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-md);
+    font-size: 14px;
+    color: var(--text-secondary);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .contact-divider {
+    width: 1px;
+    height: 16px;
+    background: var(--surface-2);
+  }
+
+  /* FOOTER */
+  footer {
+    padding: var(--space-xl) 0;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-tertiary);
+    border-top: 1px solid var(--surface-2);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero { padding: var(--space-2xl) 0 var(--space-xl); }
+    .hero h1 { font-size: 28px; }
+    .hero p { font-size: 15px; }
+    .stats-bar { gap: var(--space-lg); }
+    .stat-number { font-size: 24px; }
+    .section-title { font-size: 20px; }
+    .story-grid { grid-template-columns: 1fr; gap: var(--space-lg); }
+    .features-grid { grid-template-columns: 1fr; }
+    .value-grid { grid-template-columns: 1fr 1fr; }
+    .flow-step { min-width: 130px; }
+  }
+  @media (max-width: 480px) {
+    .value-grid { grid-template-columns: 1fr; }
+    .stats-bar { flex-direction: column; gap: var(--space-md); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <span class="hero-tag">个人开源项目</span>
+    <h1>一个好用的 B 站视频下载器</h1>
+    <p>我喜欢弹电吉他，经常在 B 站保存吉他手现场视频导入库乐队录音。觉得现有下载工具不好用，于是借鉴 yt-dlp 开源项目，用 Vibe Coding 做了一个带 Web 界面的下载器。</p>
+    <div class="stats-bar">
+      <div class="stat-item"><div class="stat-number">1543行</div><div class="stat-label">单文件全栈应用</div></div>
+      <div class="stat-item"><div class="stat-number">6大功能</div><div class="stat-label">解析/预览/下载/裁剪/历史/配置</div></div>
+      <div class="stat-item"><div class="stat-number">跨平台</div><div class="stat-label">Windows / macOS / Linux</div></div>
+      <div class="stat-item"><div class="stat-number">开源</div><div class="stat-label">GitHub 完整代码</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section>
+  <div class="container">
+    <h2 class="section-title">项目背景</h2>
+    <p class="section-desc">一个简单的个人需求，如何变成一个完整的开源工具？</p>
+    <div class="story-grid">
+      <div class="story-text">
+        <h3>起点：弹吉他的人需要一个好用的下载器</h3>
+        <p>我喜欢弹电吉他，经常需要把 B 站上吉他手的现场演奏视频保存下来，导入库乐队 (GarageBand) 进行跟弹录音练习。市面上的下载工具要么界面复杂、要么需要付费、要么操作繁琐，于是决定自己做一个。</p>
+        <p>项目的下载核心借鉴了 GitHub 上的经典开源项目 yt-dlp，我在此基础上用 Python + Flask 封装了一套 Web 交互界面，做到粘贴链接即可预览和下载，双击启动脚本即用。</p>
+        <div class="story-highlight">
+          <p>坦诚说明：本项目使用 Vibe Coding 方式开发，借助 Claude Code 辅助编码。下载引擎基于开源项目 yt-dlp，我负责需求定义、界面设计、功能整合和用户体验把控。</p>
+        </div>
+      </div>
+      <div>
+        <div class="screenshot-frame">
+          <img src="showcase-assets/main-ui.png" alt="哔哩哔哩下载器主界面">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW -->
+<section>
+  <div class="container">
+    <h2 class="section-title">使用流程</h2>
+    <p class="section-desc">从粘贴链接到文件保存，4步完成视频下载。</p>
+    <div class="flow-container">
+      <div class="flow-step">
+        <div class="flow-number">1</div>
+        <h4>粘贴链接</h4>
+        <p>复制 B 站视频 URL<br>粘贴到输入框</p>
+        <span class="flow-tag">支持多种URL格式</span>
+      </div>
+      <div class="flow-step">
+        <div class="flow-number">2</div>
+        <h4>解析预览</h4>
+        <p>自动获取标题、封面<br>时长、UP主信息</p>
+        <span class="flow-tag">实时预览</span>
+      </div>
+      <div class="flow-step">
+        <div class="flow-number">3</div>
+        <h4>选择参数</h4>
+        <p>画质 360p~4K<br>格式 MP4/MP3/FLAC</p>
+        <span class="flow-tag">全参数可配置</span>
+      </div>
+      <div class="flow-step">
+        <div class="flow-number">4</div>
+        <h4>一键下载</h4>
+        <p>实时进度反馈<br>文件保存到指定目录</p>
+        <span class="flow-tag">后台异步处理</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section>
+  <div class="container">
+    <h2 class="section-title">功能展示</h2>
+    <p class="section-desc">每个功能都围绕"简单好用"的原则设计，让非技术用户也能轻松上手。</p>
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-header">
+          <div class="feature-icon">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </div>
+          <h3>智能解析</h3>
+        </div>
+        <ul class="feature-list">
+          <li>输入 B 站 URL 自动获取视频标题、封面、时长、UP主</li>
+          <li>实时预览视频缩略图，确认后再下载</li>
+          <li>支持多种 B 站链接格式（BV号、av号、短链接）</li>
+        </ul>
+        <div class="feature-screenshot"><img src="showcase-assets/main-ui.png" alt="解析预览"></div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-header">
+          <div class="feature-icon">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </div>
+          <h3>多格式下载</h3>
+        </div>
+        <ul class="feature-list">
+          <li>视频支持 MP4 / WebM 格式</li>
+          <li>音频支持 MP3 / M4A / FLAC 格式提取</li>
+          <li>画质从 360p 到 4K (2160p) 全覆盖</li>
+          <li>自动调用 FFmpeg 进行音视频合并</li>
+        </ul>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-header">
+          <div class="feature-icon">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2"/><line x1="8" y1="2" x2="8" y2="22"/><line x1="16" y1="2" x2="16" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+          </div>
+          <h3>视频裁剪</h3>
+        </div>
+        <ul class="feature-list">
+          <li>设置开始和结束时间点，只下载需要的片段</li>
+          <li>通过 FFmpeg 精准裁剪，无需下载完整视频</li>
+          <li>适合提取视频中的精彩片段或教程关键段落</li>
+        </ul>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-header">
+          <div class="feature-icon">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3>用户体验细节</h3>
+        </div>
+        <ul class="feature-list">
+          <li>下载历史侧边栏，快速回顾和访问已下载文件</li>
+          <li>可选保存视频封面高清缩略图</li>
+          <li>启动时自动检测 Python 依赖和 FFmpeg 环境</li>
+          <li>下载路径可自定义配置，默认保存到桌面</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE -->
+<section>
+  <div class="container">
+    <h2 class="section-title">项目价值</h2>
+    <p class="section-desc">作为一个个人项目，它体现了哪些能力？</p>
+    <div class="value-grid">
+      <div class="value-item"><div class="value-icon">🎯</div><h3>需求导向</h3><p>从真实痛点出发，解决自己遇到的问题，而不是为了做项目而做项目</p></div>
+      <div class="value-item"><div class="value-icon">🏗️</div><h3>全栈能力</h3><p>前后端一体化设计，Python 后端 + Web 前端 + FFmpeg 多媒体处理，单文件1543行完整应用</p></div>
+      <div class="value-item"><div class="value-icon">👥</div><h3>用户思维</h3><p>双击即用的启动脚本、环境自检、下载历史、配置持久化，每个细节都在降低使用门槛</p></div>
+      <div class="value-item"><div class="value-icon">🤖</div><h3>AI 协作能力</h3><p>熟练使用 Vibe Coding 开发方式，能通过 AI 工具高效完成从构思到交付的全流程</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section>
+  <div class="container" style="text-align: center;">
+    <h2 class="section-title" style="text-align: center;">技术选型</h2>
+    <p class="section-desc" style="text-align: center; margin-left: auto; margin-right: auto;">轻量级技术栈，追求简单实用。</p>
+    <div class="tech-strip">
+      <span class="tech-badge">Python 3</span>
+      <span class="tech-badge">Flask</span>
+      <span class="tech-badge">yt-dlp</span>
+      <span class="tech-badge">FFmpeg</span>
+      <span class="tech-badge">HTML5 / CSS3</span>
+      <span class="tech-badge">Vanilla JavaScript</span>
+      <span class="tech-badge">Fetch API</span>
+      <span class="tech-badge">Threading</span>
+    </div>
+    <p class="tech-note">下载核心基于 yt-dlp 开源项目，通过 Vibe Coding 方式（Claude Code 辅助）高效开发</p>
+  </div>
+</section>
+
+<!-- PROJECT STATS -->
+<section>
+  <div class="container">
+    <h2 class="section-title" style="text-align: center;">项目概况</h2>
+    <p class="section-desc" style="text-align: center; margin-left: auto; margin-right: auto;">使用 Antigravity + Claude Code 以 Vibe Coding 方式完成开发，以下是项目的关键数据。</p>
+    <div class="dev-summary">
+      <div class="dev-summary-item"><strong>1543</strong><span>行 Python 代码</span></div>
+      <div class="dev-summary-item"><strong>单文件</strong><span>前后端一体化</span></div>
+      <div class="dev-summary-item"><strong>8</strong><span>个 API 接口</span></div>
+      <div class="dev-summary-item"><strong>6</strong><span>大核心功能</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section>
+  <div class="container">
+    <div class="about-box">
+      <blockquote>发现问题，用技术解决问题。<br>这就是我做项目的方式。</blockquote>
+      <div class="contact-info">
+        <span>📱 18673129182</span>
+        <span class="contact-divider"></span>
+        <span>💬 微信: xjt18973111415</span>
+        <span class="contact-divider"></span>
+        <a href="https://github.com/CuiSheng-TAO" target="_blank">🐙 GitHub: CuiSheng-TAO</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="container"><p>哔哩哔哩下载器 - 项目展示 &copy; 2026</p></div></footer>
+
+</body>
+</html>
